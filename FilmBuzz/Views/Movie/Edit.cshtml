@@ -1,0 +1,123 @@
+﻿@model FilmBuzz.Common.Model.TBL_MOVIES
+
+@{
+    ViewBag.Title = "Edit";
+}
+<style>
+
+    .form-horizontal .control-label {
+        text-align: left;
+    }
+</style>
+<h2>Edit Movie</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.HiddenFor(model => model.MovieId, htmlAttributes: new { @class = "control-label col-md-2" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("YearofRelease", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.YearofRelease, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.YearofRelease, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Plot, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Plot, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Plot, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Actors", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.ListBoxFor(m => m.SelectedValues, Model.AllValues, new { @class = "form-control e1", @multiple = "multiple" })
+
+                @*  @Html.DropDownListFor(model => model.ActorsId, new MultiSelectList(@ViewBag.Actor, "ActorId", "Name", ViewBag.Actors), "--Select Actor--", new { @class = "form-control ", multiple = "multiple", @id = "actordd" })*@
+                <button type="button" class="btn btn-warning ids">ADD</button> <span>(To Select multiple actors press ctrl and select the actors)</span>
+                @Html.ValidationMessageFor(model => model.ActorId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProducerId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ProducerId, new SelectList(@ViewBag.Producer, "ProducerId", "Name", ViewBag.SelectedProducer), "--Select Producer--", new { @class = "form-control ", @id = "producerdd" })<button type="button" class="btn btn-warning idds">ADD</button>
+
+                @Html.ValidationMessageFor(model => model.ProducerId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script type="text/javascript">//$(document).ready(function () {
+    //          $('#myModal').modal('hide');
+    //       });
+    $('.ids').click(function () {
+        var TeamDetailPostBackURL = '/Actor/CreateActor';
+        $.ajax({
+            type: "GET",
+            url: TeamDetailPostBackURL,
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (data) {
+                $('#myModalContent').html(data);
+                $('#myModal').modal('show');
+
+            },
+            error: function () {
+                alert("Dynamic content load failed.");
+            }
+        });
+    });
+
+    $('.idds').click(function () {
+        var TeamDetailPostBackURL = '/Producer/CreateProducer';
+        $.ajax({
+            type: "GET",
+            url: TeamDetailPostBackURL,
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (data) {
+                $('#myModalContent1').html(data);
+                $('#myModal1').modal('show');
+
+            },
+            error: function () {
+                alert("Dynamic content load failed.");
+            }
+        });
+    });
+    </script>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

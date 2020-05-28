@@ -1,0 +1,98 @@
+﻿@model FilmBuzz.Common.Model.TBL_ACTORS
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Actor Details</h2>
+<style>
+    .dl-horizontal dt {
+        text-align: left;
+    }
+</style>
+<div>
+   
+    <hr />
+    <dl class="dl-horizontal">
+        @*<dt>
+            @Html.DisplayNameFor(model => model.ActorId)
+        </dt>*@
+
+        @*<dd>
+            @Html.DisplayFor(model => model.ActorId)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DOB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DOB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bio)
+        </dd>
+        <dt>
+            Movies
+        </dt>
+        <dd>
+            <table class="table table-bordered table-responsive">
+                <tr>
+                    <th>
+                        Movie Name
+                    </th>
+                    <th>
+                        Plot
+                    </th>
+                    <th>
+                        YearofRelease
+                    </th>
+                    
+                </tr>
+
+                @foreach (var item in Model._movieslist)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Plot)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.YearofRelease)
+                        </td>
+                       
+
+                    </tr>
+                }
+
+            </table>
+        </dd>
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) *@
+    @Html.ActionLink("Back to List", "Index")
+</p>

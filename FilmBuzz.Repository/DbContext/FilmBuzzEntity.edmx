@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FilmBuzzModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TBL_ACTORS">
+          <Key>
+            <PropertyRef Name="ActorId" />
+          </Key>
+          <Property Name="ActorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Sex" Type="varchar" MaxLength="50" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="Bio" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="TBL_MOVIES">
+          <Key>
+            <PropertyRef Name="MovieId" />
+          </Key>
+          <Property Name="MovieId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="YearofRelease" Type="int" />
+          <Property Name="Plot" Type="varchar(max)" />
+          <Property Name="Poster" Type="varbinary(max)" />
+          <Property Name="ActorId" Type="int" />
+          <Property Name="ProducerId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_PRODUCERS">
+          <Key>
+            <PropertyRef Name="ProducerId" />
+          </Key>
+          <Property Name="ProducerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Sex" Type="varchar" MaxLength="6" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="Bio" Type="varchar(max)" />
+        </EntityType>
+        <Association Name="FK_TBL_MOVIES_TBL_ACTORS">
+          <End Role="TBL_ACTORS" Type="Self.TBL_ACTORS" Multiplicity="0..1" />
+          <End Role="TBL_MOVIES" Type="Self.TBL_MOVIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ACTORS">
+              <PropertyRef Name="ActorId" />
+            </Principal>
+            <Dependent Role="TBL_MOVIES">
+              <PropertyRef Name="ActorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_MOVIES_TBL_PRODUCERS">
+          <End Role="TBL_PRODUCERS" Type="Self.TBL_PRODUCERS" Multiplicity="1" />
+          <End Role="TBL_MOVIES" Type="Self.TBL_MOVIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PRODUCERS">
+              <PropertyRef Name="ProducerId" />
+            </Principal>
+            <Dependent Role="TBL_MOVIES">
+              <PropertyRef Name="ProducerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FilmBuzzModelStoreContainer">
+          <EntitySet Name="TBL_ACTORS" EntityType="Self.TBL_ACTORS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_MOVIES" EntityType="Self.TBL_MOVIES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_PRODUCERS" EntityType="Self.TBL_PRODUCERS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TBL_MOVIES_TBL_ACTORS" Association="Self.FK_TBL_MOVIES_TBL_ACTORS">
+            <End Role="TBL_ACTORS" EntitySet="TBL_ACTORS" />
+            <End Role="TBL_MOVIES" EntitySet="TBL_MOVIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_MOVIES_TBL_PRODUCERS" Association="Self.FK_TBL_MOVIES_TBL_PRODUCERS">
+            <End Role="TBL_PRODUCERS" EntitySet="TBL_PRODUCERS" />
+            <End Role="TBL_MOVIES" EntitySet="TBL_MOVIES" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FilmBuzzModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FilmBuzzDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TBL_ACTORS" EntityType="FilmBuzzModel.TBL_ACTORS" />
+          <EntitySet Name="TBL_MOVIES" EntityType="FilmBuzzModel.TBL_MOVIES" />
+          <EntitySet Name="TBL_PRODUCERS" EntityType="FilmBuzzModel.TBL_PRODUCERS" />
+          <AssociationSet Name="FK_TBL_MOVIES_TBL_ACTORS" Association="FilmBuzzModel.FK_TBL_MOVIES_TBL_ACTORS">
+            <End Role="TBL_ACTORS" EntitySet="TBL_ACTORS" />
+            <End Role="TBL_MOVIES" EntitySet="TBL_MOVIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_MOVIES_TBL_PRODUCERS" Association="FilmBuzzModel.FK_TBL_MOVIES_TBL_PRODUCERS">
+            <End Role="TBL_PRODUCERS" EntitySet="TBL_PRODUCERS" />
+            <End Role="TBL_MOVIES" EntitySet="TBL_MOVIES" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="TBL_ACTORS">
+          <Key>
+            <PropertyRef Name="ActorId" />
+          </Key>
+          <Property Name="ActorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="Bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_MOVIES" Relationship="FilmBuzzModel.FK_TBL_MOVIES_TBL_ACTORS" FromRole="TBL_ACTORS" ToRole="TBL_MOVIES" />
+        </EntityType>
+        <EntityType Name="TBL_MOVIES">
+          <Key>
+            <PropertyRef Name="MovieId" />
+          </Key>
+          <Property Name="MovieId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="YearofRelease" Type="Int32" />
+          <Property Name="Plot" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Poster" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ActorId" Type="Int32" />
+          <Property Name="ProducerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TBL_ACTORS" Relationship="FilmBuzzModel.FK_TBL_MOVIES_TBL_ACTORS" FromRole="TBL_MOVIES" ToRole="TBL_ACTORS" />
+          <NavigationProperty Name="TBL_PRODUCERS" Relationship="FilmBuzzModel.FK_TBL_MOVIES_TBL_PRODUCERS" FromRole="TBL_MOVIES" ToRole="TBL_PRODUCERS" />
+        </EntityType>
+        <EntityType Name="TBL_PRODUCERS">
+          <Key>
+            <PropertyRef Name="ProducerId" />
+          </Key>
+          <Property Name="ProducerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sex" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="Bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_MOVIES" Relationship="FilmBuzzModel.FK_TBL_MOVIES_TBL_PRODUCERS" FromRole="TBL_PRODUCERS" ToRole="TBL_MOVIES" />
+        </EntityType>
+        <Association Name="FK_TBL_MOVIES_TBL_ACTORS">
+          <End Type="FilmBuzzModel.TBL_ACTORS" Role="TBL_ACTORS" Multiplicity="0..1" />
+          <End Type="FilmBuzzModel.TBL_MOVIES" Role="TBL_MOVIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ACTORS">
+              <PropertyRef Name="ActorId" />
+            </Principal>
+            <Dependent Role="TBL_MOVIES">
+              <PropertyRef Name="ActorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_MOVIES_TBL_PRODUCERS">
+          <End Type="FilmBuzzModel.TBL_PRODUCERS" Role="TBL_PRODUCERS" Multiplicity="1" />
+          <End Type="FilmBuzzModel.TBL_MOVIES" Role="TBL_MOVIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_PRODUCERS">
+              <PropertyRef Name="ProducerId" />
+            </Principal>
+            <Dependent Role="TBL_MOVIES">
+              <PropertyRef Name="ProducerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FilmBuzzModelStoreContainer" CdmEntityContainer="FilmBuzzDbContext">
+          <EntitySetMapping Name="TBL_ACTORS">
+            <EntityTypeMapping TypeName="FilmBuzzModel.TBL_ACTORS">
+              <MappingFragment StoreEntitySet="TBL_ACTORS">
+                <ScalarProperty Name="Bio" ColumnName="Bio" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ActorId" ColumnName="ActorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_MOVIES">
+            <EntityTypeMapping TypeName="FilmBuzzModel.TBL_MOVIES">
+              <MappingFragment StoreEntitySet="TBL_MOVIES">
+                <ScalarProperty Name="ProducerId" ColumnName="ProducerId" />
+                <ScalarProperty Name="ActorId" ColumnName="ActorId" />
+                <ScalarProperty Name="Poster" ColumnName="Poster" />
+                <ScalarProperty Name="Plot" ColumnName="Plot" />
+                <ScalarProperty Name="YearofRelease" ColumnName="YearofRelease" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_PRODUCERS">
+            <EntityTypeMapping TypeName="FilmBuzzModel.TBL_PRODUCERS">
+              <MappingFragment StoreEntitySet="TBL_PRODUCERS">
+                <ScalarProperty Name="Bio" ColumnName="Bio" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProducerId" ColumnName="ProducerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

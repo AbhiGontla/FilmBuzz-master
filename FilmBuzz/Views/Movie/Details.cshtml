@@ -1,0 +1,105 @@
+﻿@model FilmBuzz.Common.Model.TBL_MOVIES
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Movie Details</h2>
+<style>
+  .dl-horizontal dt {
+  
+    text-align: left;
+    
+}
+</style>
+<div>
+       <hr />
+    <dl class="dl-horizontal">
+        @*<dt>
+            @Html.DisplayNameFor(model => model.MovieId)
+        </dt>*@
+
+        @*<dd>
+            @Html.DisplayFor(model => model.MovieId)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YearofRelease)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YearofRelease)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Plot)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Plot)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProducerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProducerName)
+        </dd>
+        <dt>
+            Actors
+        </dt>
+        <dd>
+            <table class="table table-bordered table-responsive" >
+                <tr>
+                    <th>
+                       ActorName
+                    </th>
+                    <th>
+                        Sex
+                    </th>
+                    <th>
+                       Bio
+                    </th>
+                    <th>
+                       DOB
+                    </th>                   
+                </tr>
+
+                @foreach (var item in Model.Actors)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sex)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Bio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DOB)
+                        </td>                   
+                       
+                    </tr>
+                }
+
+            </table>
+        </dd>
+    </dl>
+    
+</div>
+<p>
+   @* @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
+    @Html.ActionLink("Back to List", "Index")
+</p>
